@@ -1,0 +1,7 @@
+'use client';
+import {useState,type FormEvent} from 'react';
+import {appPath} from '@/lib/app-path';
+export default function Login(){const[busy,setBusy]=useState(false),[error,setError]=useState('');
+ async function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();setBusy(true);setError('');const fields=new FormData(event.currentTarget);try{const response=await fetch(appPath('/api/session'),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:fields.get('username'),password:fields.get('password')})});const value=await response.json();if(!response.ok)throw Error(value&&typeof value==='object'&&'error' in value&&typeof value.error==='string'?value.error:'登录失败');window.location.assign(appPath('/'));}catch(e){setError(e instanceof Error?e.message:'暂时无法登录');setBusy(false);}}
+ return <main className="momentum-login"><form onSubmit={submit}><div className="login-leaf">✦</div><p className="eyebrow">有序 MOMENTUM</p><h1>把时间，留给重要的事。</h1><p>登录你的成长空间，继续记录每一点进步。</p><label className="field">账号<input name="username" autoComplete="username" required maxLength={64}/></label><label className="field">密码<input name="password" type="password" autoComplete="current-password" required maxLength={256}/></label>{error&&<p className="login-error" role="alert">{error}</p>}<button className="button primary" type="submit" disabled={busy}>{busy?'正在登录…':'登录我的空间'}</button><small>你的日历、专注与习惯记录，按账号独立保存。</small></form></main>;
+}
