@@ -81,3 +81,9 @@ npm run test:integration
 集成测试使用临时数据库和随机测试密码，验证真实生产服务的登录、账号隔离、JSON 恢复、保存冲突、来源检查、大小限制、重启持久化和退出失效，不会读取生产配置。预览可使用独立的 `MOMENTUM_CONFIG` 文件配置数据库与地址后执行 `npm start`；不要在开发中连接生产数据库。
 
 公开仓库不包含个人记录、凭据、数据库、备份、构建产物或原 Sites 项目标识。第三方许可保留在 `vendor/` 和 `scripts/vite/`。
+
+## 2.1 产品与成果、复盘和报表
+
+增加长期任务与日程关联、成果/卡点记录、多维筛选排序、日历里的每日/每周复盘，以及 8 个工作表的周报/月报/年报 Excel 下载。旧备份兼容，升级不重建生产数据库。详情见 [2.1 开发记录](docs/versions/2.1/README.md)；[交易计划提案](docs/versions/2.1/trading-plan-proposal.md)仅为设计，尚未开发。
+
+每个版本的变更、设计、验证、发布状态与后续建议放在 `docs/versions/<版本>/`。独立 Sites 站点可通过 `node scripts/prepare-sites.mjs /absolute/empty/destination` 生成适配源码，然后使用 Sites 正常构建发布流程。生成目录不能是公司工作区，也不能包含既有文件；它有独立登录和存储，不同步公司数据库。
